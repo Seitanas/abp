@@ -1,0 +1,1 @@
+void syslog_write(char *msg);
