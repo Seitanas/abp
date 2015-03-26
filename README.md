@@ -3,10 +3,14 @@ AntiBurglar-pi
   
 Home security system, based on raspberry-pi.  
 System monitors two security zones, two temperature zones. Uses gnokii to send sms via gsm phone or modem, activates 
-siren via relay. Also monitors status of powerline, reports if power is down. 
-Deactivation of armed system is done via SMS command. After sending "disarm password" (e.g disarm 1111) to abp GSM phone number, system deactivates within one minute.
-After sending "status password" (eg. status 1111) command, system responds with device uptime and temperature status within one minute.
-Alarm warning is sent do a predefined number in config.h file.  
+siren via relay.  
+Also monitors status of powerline, reports if power is down.  
+System control is done via SMS commands:  
+  
+After sending "disarm password" (e.g disarm 1111) to abp GSM phone number, armed system deactivates within one minute.  
+After sending "status password" (eg. status 1111) command, system responds with device uptime and temperature status within one minute.  
+  
+When triggered, alarm warning is sent do a predefined number in config.h file.  
   
 Edit src/config.h to fit your needs.  
 You need to install libgnokii development libraries, also wiringpi:  
