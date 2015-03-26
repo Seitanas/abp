@@ -54,7 +54,6 @@ void * armed_blink(){//blinks LED while system is armed.
 
 void arm_beep(void){//beep for period of arming_seconds.
     int x=ARMING_SECONDS*2;
-    x=2;
     while (x!=0){
 	int pulse=0;
 	while (pulse!=100){
