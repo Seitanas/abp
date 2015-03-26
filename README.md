@@ -29,7 +29,7 @@ make install
 
 If using raspbian distribution, copy init script from debian_init folder  
 to /etc/init.d/ folder. 
-Start antiburglar-pi wit /etc/init.d/abp start  
+Start antiburglar-pi with /etc/init.d/abp start  
   
   
 v0.1a some fixes, init scripts.  
