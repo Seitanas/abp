@@ -1,5 +1,5 @@
 /*
-    antiburglar-pi 0.1
+    antiburglar-pi 0.1a
     Tadas Ustinavičius
     2015-03-12
 */
@@ -118,16 +118,19 @@ void daemon(){
         FILE *pid;
         mypid=fork();
         if (mypid){
-                pid=fopen("abp.pid","w");
+                pid=fopen("/var/run/abp/abp.pid","w");
                 fprintf(pid,"%i",mypid);
                 exit (0);
         }
 }
-
+void system_exit(void){
+    syslog_write("Stopping antiburglar-pi");
+}
 int main (void){
+    atexit (system_exit);
     syslog_write("Starting antiburglar-pi");
-
     init_gpio();
+    disarm_beep(); //beep at system startup
     daemon();
     setlocale(LC_ALL, "");
     sleep (1); //wait for dust to settle
@@ -169,7 +172,7 @@ int main (void){
 	    gnokii_send(RECIPIENT,"Power is back to normal");
 	    syslog_write("Power is back to normal");
 	}
-	if (timer==600){//check inbox every minute 
+	if (timer==300){//check inbox every minute 
     	    getsms();
     	    timer=0;
 	}
