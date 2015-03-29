@@ -108,7 +108,6 @@ void getsms(void){
 	    digitalWrite(SIREN,HIGH);
 	    gnokii_send(sms_sender,"Turning siren on.");
     	    syslog_write("Turning siren on.");
-	    //send_status=1;
 	}
 	strcpy(sms_command,"siren off ");
         strcat(sms_command,PASSWORD);
@@ -116,7 +115,6 @@ void getsms(void){
 	    digitalWrite(SIREN,LOW);
 	    gnokii_send(sms_sender,"Turning siren off.");
     	    syslog_write("Turning siren off.");
-	    //send_status=1;
 	}
 
 
