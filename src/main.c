@@ -1,7 +1,7 @@
 /*
-    antiburglar-pi 0.1a
+    antiburglar-pi
     Tadas Ustinavičius
-    2015-03-12
+    2015-03-31
 */
 
 
@@ -125,6 +125,11 @@ void daemon(){
 void system_exit(void){
     syslog_write("Stopping antiburglar-pi");
 }
+void call_led_thread(void){
+    pthread_t tid;
+    pthread_create(&tid,NULL,armed_blink,NULL);
+    pthread_detach(tid);
+}
 int main (void){
     atexit (system_exit);
     syslog_write("Starting antiburglar-pi");
@@ -145,9 +150,7 @@ int main (void){
 	    armed=1;
 	    gnokii_send(RECIPIENT,"System armed.");
 	    syslog_write("System armed.");
-	    pthread_t tid;
-	    pthread_create(&tid,NULL,armed_blink,NULL);
-	    pthread_detach(tid);
+	    call_led_thread();
         }
 	if (armed&&door&&!door_sent){//system is armed, door was opened, sms was not sent
 	    gnokii_send(RECIPIENT,"Door is open, triggering alarm.");

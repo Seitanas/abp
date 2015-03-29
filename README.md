@@ -7,8 +7,11 @@ siren via relay.
 Also monitors status of powerline, reports if power is down.  
 System control is done via SMS commands:  
   
-After sending "disarm password" (e.g disarm 1111) to abp GSM phone number, armed system deactivates within one minute.  
-After sending "status password" (eg. status 1111) command, system responds with device uptime and temperature status within one minute.  
+<b>arm password</b> (e.g arm 1111) - system is armed instantly.  
+<b>disarm password</b> - armed system deactivates after receiving SMS.  
+<b>status password</b> - system responds with device uptime and temperature status after receiving SMS.  
+<b>siren on password</b> - siren is turned on.  
+<b>siren off password</b> - siren is turned off.  
   
 When triggered, alarm warning is sent do a predefined number in config.h file.  
   
@@ -32,5 +35,6 @@ to /etc/init.d/ folder.
 Start antiburglar-pi with /etc/init.d/abp start  
   
   
+v0.1b some additional features.    
 v0.1a some fixes, init scripts.  
 v0.1 Initial release  

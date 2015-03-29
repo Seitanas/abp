@@ -3,9 +3,11 @@
 #include <string.h>
 #include <gnokii.h>
 #include <signal.h>
+#include "main.h"
 #include <sys/stat.h>
 #include "globals.h"
 #include "config.h"
+#include <wiringPi.h>
 /*
  * 
  */
@@ -79,6 +81,17 @@ void getsms(void){
 	        syslog_write(temp_message);
 		gn_sms_delete(data, state);
 	}
+	strcpy(sms_command,"arm ");
+        strcat(sms_command,PASSWORD);
+	bus_terminate();
+        if (strcmp(sms_command,message.user_data[0].u.text)==0){
+	    if (!armed){
+		armed=1;
+		gnokii_send(sms_sender,"System armed.");
+        	syslog_write("System armed.");
+		call_led_thread();
+	    }
+	}
 	strcpy(sms_command,"status ");
         strcat(sms_command,PASSWORD);
         if (strcmp(sms_command,message.user_data[0].u.text)==0){
@@ -89,7 +102,23 @@ void getsms(void){
         if (strcmp(sms_command,message.user_data[0].u.text)==0){
 	    disarm=1;
 	}
-    bus_terminate();
+	strcpy(sms_command,"siren on ");
+        strcat(sms_command,PASSWORD);
+        if (strcmp(sms_command,message.user_data[0].u.text)==0){
+	    digitalWrite(SIREN,HIGH);
+	    gnokii_send(sms_sender,"Turning siren on.");
+    	    syslog_write("Turning siren on.");
+	    //send_status=1;
+	}
+	strcpy(sms_command,"siren off ");
+        strcat(sms_command,PASSWORD);
+        if (strcmp(sms_command,message.user_data[0].u.text)==0){
+	    digitalWrite(SIREN,LOW);
+	    gnokii_send(sms_sender,"Turning siren off.");
+    	    syslog_write("Turning siren off.");
+	    //send_status=1;
+	}
+
 
 
 }
