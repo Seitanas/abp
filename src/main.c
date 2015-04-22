@@ -147,6 +147,7 @@ int main (void){
 	++timer;
         if (!armed&&!arm){//arm button pressed. gpio pin low
             arm_beep();
+            read_sensors();
 	    armed=1;
 	    gnokii_send(RECIPIENT,"System armed.");
 	    syslog_write("System armed.");
