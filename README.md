@@ -39,7 +39,7 @@ http://www.neblogas.lt/2015/03/31/antiburglar-pi/
   
   
   
-v0.1c extented status report info.  
+v0.1c extended status report info.  
 v0.1b some additional features.    
 v0.1a some fixes, init scripts.  
 v0.1 Initial release  
