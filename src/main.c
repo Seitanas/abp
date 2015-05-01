@@ -1,7 +1,7 @@
 /*
     antiburglar-pi
     Tadas Ustinavičius
-    2015-03-31
+    2015-05-01
 */
 
 
@@ -131,6 +131,7 @@ void call_led_thread(void){
     pthread_detach(tid);
 }
 int main (void){
+    exit;
     atexit (system_exit);
     syslog_write("Starting antiburglar-pi");
     init_gpio();
@@ -192,8 +193,28 @@ int main (void){
 	    info.uptime -= hours * (60 * 60);
 	    int minutes = info.uptime / 60;
 	    info.uptime -= minutes * 60;
-	    char uptime[100];
-    	    sprintf(uptime,"UP: %i days, %i hours, %i minutes, %i seconds. Load average: %.2f %.2f %.2f Temp1: %.2f Temp2: %.2f",days,hours,minutes, info.uptime,info.loads[0]/65536.0, info.loads[1]/65536.0, info.loads[2]/65536.0,temp1/1000,temp2/1000);
+	    char uptime[160];
+	    char window_status[10];
+	    char door_status[10];
+	    char arm_status[10];
+	    char siren_status[10];
+	    if (window)
+		sprintf(window_status,"open. ");
+	    else
+		sprintf(window_status,"closed. ");
+	    if (door)
+		sprintf(door_status,"open. ");
+	    else
+		sprintf(door_status,"closed. ");
+	    if (digitalRead(SIREN))
+	    	sprintf(siren_status,"on. ");
+	    else
+		sprintf(siren_status,"off. ");
+	    if (armed)
+		sprintf(arm_status,"armed.");
+	    else
+		sprintf(arm_status,"disarmed.");
+    	    sprintf(uptime,"UP: %i days, %i hours, %i minutes, %i seconds. Load average: %.2f %.2f %.2f Temp1: %.2f Temp2: %.2f. Window: %sDoor: %sSiren: %sSystem: %s",days,hours,minutes, info.uptime,info.loads[0]/65536.0, info.loads[1]/65536.0, info.loads[2]/65536.0,temp1/1000,temp2/1000,window_status,door_status,siren_status,arm_status);
 	    sprintf(temp_message,"Client %s is requesting status.",sms_sender);	    
 	    syslog_write(temp_message);
 	    sprintf(temp_message,"Replying with %s",uptime);
