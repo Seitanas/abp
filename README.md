@@ -34,6 +34,11 @@ If using raspbian distribution, copy init script from debian_init folder
 to /etc/init.d/ folder. 
 Start antiburglar-pi with /etc/init.d/abp start  
   
+More information about this project can be found at:  
+http://www.neblogas.lt/2015/03/31/antiburglar-pi/  
+  
+  
+  
 v0.1c extented status remport info.  
 v0.1b some additional features.    
 v0.1a some fixes, init scripts.  
